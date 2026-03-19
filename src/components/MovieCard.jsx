@@ -34,7 +34,6 @@ export default function Moviecard({ movie, genres }) {
 
       window.open(trailerData.url, "_blank")
     } catch (error) {
-      console.error("Error fetching trailer:", error)
       alert("Failed to fetch trailer")
     }
   }

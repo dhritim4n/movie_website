@@ -28,7 +28,6 @@ export default function Movie_details() {
 
             window.open(trailerData.url, "_blank")
         } catch (error) {
-            console.error("Error fetching trailer:", error)
             alert("Failed to fetch trailer")
         }
     }

@@ -40,7 +40,7 @@ const UseMovieGenre = () => {
 const UseMovieByGenre = (id, page) => {
     return useQuery(
         {
-            queryKey: ["movie-by-genre", page],
+            queryKey: ["movie-by-genre", page, id],
             queryFn: async () => {
                 const res = await axios.get(`/api/movie/genre/${id}?page=${page}`)
                 return res.data
