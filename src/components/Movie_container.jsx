@@ -4,10 +4,8 @@ import { UseMovieGenre, useTrendingMovies } from "@/hooks/movies"
 import { useState } from "react"
 import Moviecard from "./MovieCard"
 
-export default function Movie_container(){
-
-    const { data: movies, isLoading, isError }  = useTrendingMovies()
-    const { data: genre } = UseMovieGenre()
+export default function Movie_container({movies}){
+    const {data: genre} = UseMovieGenre()
     return(
         <div>
             <div
@@ -18,9 +16,6 @@ export default function Movie_container(){
                         (movie) => <Moviecard key={movie.id} movie={movie} genres={genre?.genres}/> 
                     )
                 }
-            </div>
-            <div>
-
             </div>
         </div>
     )

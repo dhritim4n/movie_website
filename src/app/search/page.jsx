@@ -1,8 +1,7 @@
 "use client"
 
-import Moviecard from "@/components/MovieCard"
-import { UseSearchMovie, useTrendingMovies } from "@/hooks/movies"
-import QueryProvider from "@/providers/QueryProvider"
+import Movie_container from "@/components/Movie_container"
+import { UseMovieGenre, UseSearchMovie, useTrendingMovies } from "@/hooks/movies"
 import { useSearchParams } from "next/navigation"
 
 export default function SearchPg() {
@@ -10,16 +9,11 @@ export default function SearchPg() {
     const q = searchParams.get('q')
     var page = searchParams.get('page')
     if (!page) page = 1
-    const { data: movie } = UseSearchMovie(q, page)
+    const { data: movies } = UseSearchMovie(q, page)
+    const {data: genre} = UseMovieGenre()
     return (
             <main>
-                <div className="grid gap-4 mx-5 md:grid-cols-3">
-                {
-                    movie?.results?.map(
-                        (movie) => <Moviecard movie={movie} key={movie.id}/>
-                    )
-                }
-                </div>
+                <Movie_container movies={movies}/>
             </main>
     )
 

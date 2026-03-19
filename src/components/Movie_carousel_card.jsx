@@ -12,13 +12,13 @@ export default function Movie_carousel_card({ movie }) {
     enabled: false,
   })
 
-  const showTrailer = async () => {
+  const showTrailer = async (title) => {
     try {
       const trailerData = trailer || (await refetch()).data
 
       if (!trailerData?.url) {
         window.open(
-          `https://www.youtube.com/results?search_query=${movie.title}+movie+trailer`,
+          `https://www.youtube.com/results?search_query=${title}+movie+trailer`,
           "_blank"
         )
         return
@@ -32,7 +32,7 @@ export default function Movie_carousel_card({ movie }) {
   }
 
   return (
-    <Card className="relative rounded-2xl md:rounded-3xl shadow-lg bg-background text-foreground overflow-hidden">
+    <Card className="relative h-[max(90vh,400px)] rounded-2xl md:rounded-3xl shadow-lg bg-background text-foreground overflow-hidden">
 
       {/* Background image */}
       <img
@@ -72,7 +72,7 @@ export default function Movie_carousel_card({ movie }) {
           w-full sm:w-fit">
 
           <button
-            onClick={showTrailer}
+            onClick={()=>showTrailer(movie.title)}
             className="flex items-center justify-center gap-2 
               bg-red-600 px-4 py-2 sm:px-5 sm:py-2.5 
               rounded-lg font-semibold hover:opacity-90 
@@ -95,4 +95,8 @@ export default function Movie_carousel_card({ movie }) {
       </CardContent>
     </Card>
   )
+}
+
+export {
+  showTrailer
 }

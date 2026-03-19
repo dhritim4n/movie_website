@@ -2,7 +2,6 @@ import API from "@/API/api"
 
 export async function GET(req, {params}){
     const {id} = await params
-    console.log(id)
     const res = await API.get(
         `/movie/${id}/videos?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
     )

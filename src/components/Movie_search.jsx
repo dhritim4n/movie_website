@@ -11,13 +11,14 @@ export function Movie_search() {
   const router = useRouter()
   const handleSearch = () => {
     if(searchq!=='') router.push(`/search?q=${searchq}`)
+    setSearchq('')
   }
 
 
   return (
     <Field>
       <ButtonGroup>
-        <Input id="input-button-group" value={searchq} onChange={(e) => setSearchq(e.target.value)} placeholder="Enter Movie Name..." />
+        <Input id="input-button-group" value={searchq} onKeyDown={(e) => e.key=="Enter" && handleSearch()} onChange={(e) => setSearchq(e.target.value)} placeholder="Enter Movie Name..." />
         <Button variant="outline" onClick={() => handleSearch()}>Search</Button>
       </ButtonGroup>
     </Field>

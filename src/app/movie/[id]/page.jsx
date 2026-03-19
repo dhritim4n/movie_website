@@ -1,20 +1,42 @@
 "use client"
 import React from "react"
 import { useParams } from "next/navigation"
-import { UseMovieDetails } from "@/hooks/movies"
+import { UseMovieDetails, UseMovieTrailer } from "@/hooks/movies"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Star, Clock, Globe, DollarSign, Loader2, Play, ExternalLink } from "lucide-react"
-
+import Loading from "@/components/Loading"
 export default function Movie_details() {
     const { id } = useParams()
     const { data: movie, isLoading, isError } = UseMovieDetails(id)
+    const { data: trailer, refetch } = UseMovieTrailer(movie?.id, {
+        enabled: false,
+    })
+    const showTrailer = async (movie) => {
+
+
+        try {
+            const trailerData = trailer || (await refetch()).data
+
+            if (!trailerData?.url) {
+                window.open(
+                    `https://www.youtube.com/results?search_query=${movie.title}+movie+trailer`,
+                    "_blank"
+                )
+                return
+            }
+
+            window.open(trailerData.url, "_blank")
+        } catch (error) {
+            console.error("Error fetching trailer:", error)
+            alert("Failed to fetch trailer")
+        }
+    }
+
 
     if (isLoading) {
         return (
-            <div className="h-screen flex items-center justify-center bg-black">
-                <Loader2 className="animate-spin text-white w-10 h-10" />
-            </div>
+            <Loading/>
         )
     }
 
@@ -37,7 +59,7 @@ export default function Movie_details() {
         <div className="relative min-h-screen text-white overflow-hidden">
 
             {/* 🎬 BACKGROUND */}
-            <div className="absolute inset-0 -z-10">
+            <div className="absolute inset-0 -z-10 ">
                 {/* Image */}
                 <img
                     src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
@@ -46,16 +68,16 @@ export default function Movie_details() {
                 />
 
                 {/* 🔥 Overlay (Gradient + Blur) */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-black/0 " />
+                <div className="absolute inset-0 bg-linear-to-t from-black via-black/30 to-black/0 " />
             </div>
 
             {/* 🎬 CONTENT */}
-            <div className="relative z-10 max-w-7xl mx-auto px-6 pt-32 pb-20">
+            <div className="relative z-10 max-w-7xl  px-10 pt-32 pb-20">
 
                 <div className="grid lg:grid-cols-3 gap-10 items-start">
 
                     {/* Poster */}
-                    <div className="flex justify-center lg:justify-start">
+                    <div className="flex justify-center">
                         <img
                             src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                             className="rounded-2xl shadow-2xl w-70 hover:scale-105 transition duration-500"
@@ -68,7 +90,7 @@ export default function Movie_details() {
 
                         {/* Title */}
                         <div>
-                            <h1 className="text-5xl md:text-7xl font-extrabold leading-tight">
+                            <h1 className="text-5xl md:text-4xl font-extrabold leading-tight">
                                 {movie.title}
                             </h1>
 
@@ -104,8 +126,9 @@ export default function Movie_details() {
                             )}
 
                             <Button
+                                onClick={() => showTrailer(movie)}
                                 variant="outline"
-                                className="rounded-full border-white/30 bg-white/10 backdrop-blur-md hover:bg-white/20 text-white"
+                                className="rounded-full px-6 bg-white text-black font-semibold hover:bg-gray-200"
                             >
                                 <ExternalLink className="mr-2 h-4 w-4" />
                                 Trailer

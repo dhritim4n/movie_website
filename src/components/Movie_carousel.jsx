@@ -12,19 +12,17 @@ import { movies } from "@/data/movies"
 import Movie_carousel_card from "./Movie_carousel_card"
 import { UseMovieTrailer, useTrendingMovies } from "@/hooks/movies"
 import Autoplay from "embla-carousel-autoplay"
+import Loading from "./Loading"
 
 
 export function Movie_carousel() {
-  const [api, setApi] = React.useState()
-  const [current, setCurrent] = React.useState(0)
-  const [count, setCount] = React.useState(0)
-
 
   const { data, isLoading, isError } = useTrendingMovies();
   const results = data?.results ?? [];
 
+  if(isLoading) <Loading/>
   return (
-    <div className="mx-auto overflow-hidden px-2">
+    <div className="overflow-hidden px-2 mx-2">
       <Carousel className="" plugins={[Autoplay({
         delay: 4000,
       }),]}>

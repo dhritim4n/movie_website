@@ -28,7 +28,7 @@ export default function Navbar() {
            <Link href="/">Home</Link>
           </li>
           <li className="cursor-pointer hover:text-primary transition-colors">
-            Genre
+                <Link href="/genre">Genre</Link>
           </li>
           <li className="cursor-pointer hover:text-primary transition-colors">
             Latest
@@ -58,7 +58,7 @@ export default function Navbar() {
                 <Link href="/">Home</Link>
               </li>
               <li className="cursor-pointer hover:text-primary transition-colors">
-                Genre
+                <Link href="/genre">Genre</Link>
               </li>
               <li className="cursor-pointer hover:text-primary transition-colors">
                 Latest
