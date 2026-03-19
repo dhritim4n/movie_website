@@ -68,9 +68,18 @@ const UseSearchMovie = (q, page) => {
         {
             queryKey: ["movie-search", q, page],
             queryFn: async () => {
+                if(!page) page = 1
+                if(!q){
+                    return {
+                        results:[
+
+                        ]
+                    }
+                }
                 const res = await axios.get(`/api/movie/search?q=${q}&page=${page}`)
                 return res.data
-            }
+            },
+            initialData: { results: [] }
             
         }
     )
