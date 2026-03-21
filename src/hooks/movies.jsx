@@ -37,6 +37,21 @@ const UseMovieGenre = () => {
     )
 }
 
+const UseMovie = (genre, lang, page) => {
+    return useQuery(
+        {
+            queryKey: ["movie-genre", genre, lang, page],
+            queryFn: async () => {
+                const res = await axios.get(`/api/movie?lang=${lang}&genre=${genre}&page=${page}`)
+                return res.data
+            }
+            
+        }
+    )
+}
+
+
+
 const UseMovieByGenre = (id, page) => {
     return useQuery(
         {
@@ -91,5 +106,6 @@ export {
     UseMovieGenre,
     UseSearchMovie,
     UseMovieDetails,
-    UseMovieByGenre
+    UseMovieByGenre,
+    UseMovie
 }

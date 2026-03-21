@@ -1,24 +1,34 @@
 "use client"
 
-import { Suspense } from "react"
+import { Suspense, useState } from "react"
 import Loading from "@/components/Loading"
 import Movie_container from "@/components/Movie_container"
 import { UseSearchMovie } from "@/hooks/movies"
 import { useSearchParams } from "next/navigation"
+import MoviePagination from "@/components/MoviePagination"
 
-export const dynamic = "force-dynamic";
 
 function SearchContent() {
     const searchParams = useSearchParams()
-
+    const [page, setPage] = useState(1)
     let q = searchParams.get("q") || ""
-    let page = searchParams.get("page") || 1
 
-    const { data: movies, isLoading } = UseSearchMovie(q, page)
+    const { data: movies, isLoading, isFetching } = UseSearchMovie(q, page)
 
-    if (isLoading) return <Loading />
+    if (isLoading || isFetching){
+        return (
+            <>
+                <Loading />
+            </>
+        ) 
+    } 
 
-    return <Movie_container movies={movies} />
+    return (
+        <>
+            <Movie_container movies={movies} />
+            {movies?.total_pages > 1 && <MoviePagination page={page} setPage={setPage} totalPages={movies.total_pages} />}
+        </>
+    )
 }
 
 export default function SearchPg() {

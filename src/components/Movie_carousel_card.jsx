@@ -82,12 +82,14 @@ export default function Movie_carousel_card({ movie }) {
             Watch Trailer
           </button>
 
-          <button className="flex items-center justify-center gap-2 
+          <button
+            onClick={() => window.open(`/movie/${movie.id}`)}
+            className="flex items-center justify-center gap-2 
             bg-gray-200 px-4 py-2 sm:px-5 sm:py-2.5 
             rounded-lg font-semibold hover:bg-gray-300 
             transition text-gray-900 text-sm sm:text-base w-full sm:w-auto">
-            <span className="text-lg sm:text-xl font-bold">+</span>
-            Watchlist
+            <span className="text-lg sm:text-xl font-bold"></span>
+            Details
           </button>
 
         </CardFooter>

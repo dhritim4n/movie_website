@@ -15,7 +15,7 @@ export default function Navbar() {
         className="hidden md:flex gap-6 bg-background border-b border-border text-foreground justify-between items-center px-6 py-3 sticky top-0 z-50 backdrop-blur"
       >
         <div className="text-xl font-semibold tracking-wide">
-          🎬 Movie Site
+          🎬 Movies Hub
         </div>
 
         <div className="w-[50%]">
@@ -28,10 +28,7 @@ export default function Navbar() {
            <Link href="/">Home</Link>
           </li>
           <li className="cursor-pointer hover:text-primary transition-colors">
-                <Link href="/genre">Genre</Link>
-          </li>
-          <li className="cursor-pointer hover:text-primary transition-colors">
-            Latest
+                <Link href="/browse">Browse</Link>
           </li>
         </ul>
       </nav>
