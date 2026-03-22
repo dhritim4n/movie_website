@@ -3,10 +3,24 @@
 import { Movie_search } from "./Movie_search"
 import { useState } from "react"
 import Hamburger from "hamburger-react"
-import Link  from "next/link"
+import Link from "next/link"
+import Home from "@/app/page"
 
 export default function Navbar() {
   const [isOpen, setOpen] = useState(false)
+  const config = {
+    name: "Movies Hub",
+    items: [
+      {
+        name: "Home",
+        link: "/"
+      },
+      {
+        name: "Browse",
+        link: "/browse"
+      }
+    ]
+  }
 
   return (
     <>
@@ -15,7 +29,7 @@ export default function Navbar() {
         className="hidden md:flex gap-6 bg-background border-b border-border text-foreground justify-between items-center px-6 py-3 sticky top-0 z-50 backdrop-blur"
       >
         <div className="text-xl font-semibold tracking-wide">
-          🎬 Movies Hub
+          🎬 {config.name}
         </div>
 
         <div className="w-[50%]">
@@ -23,13 +37,14 @@ export default function Navbar() {
         </div>
 
         <ul className="flex gap-8 text-muted-foreground">
-          
-          <li className="cursor-pointer hover:text-primary transition-colors">
-           <Link href="/">Home</Link>
-          </li>
-          <li className="cursor-pointer hover:text-primary transition-colors">
-                <Link href="/browse">Browse</Link>
-          </li>
+          {
+            config.items.map(
+              i => <li key={i.name} className="cursor-pointer hover:text-primary transition-colors">
+                <Link href={i.link}>{i.name}</Link>
+              </li>
+            )
+          }
+
         </ul>
       </nav>
 
@@ -41,25 +56,23 @@ export default function Navbar() {
           <Hamburger toggled={isOpen} toggle={setOpen} size={24} />
 
           <h1 className="text-2xl font-semibold tracking-wide">
-            🎬 Movie Site
+            🎬 {config.name}
           </h1>
         </div>
 
         {isOpen && (
           <div className="flex flex-col gap-4 bg-card border border-border rounded-lg p-4 animate-in fade-in slide-in-from-top-2">
-            
+
             <Movie_search />
 
             <ul className="flex flex-col gap-4 text-muted-foreground">
-              <li className="cursor-pointer hover:text-primary transition-colors">
-                <Link href="/">Home</Link>
-              </li>
-              <li className="cursor-pointer hover:text-primary transition-colors">
-                <Link href="/genre">Genre</Link>
-              </li>
-              <li className="cursor-pointer hover:text-primary transition-colors">
-                Latest
-              </li>
+              {
+                config.items.map(
+                  i => <li key={i.name} className="cursor-pointer hover:text-primary transition-colors">
+                    <Link href={i.link}>{i.name}</Link>
+                  </li>
+                )
+              }
             </ul>
 
           </div>
