@@ -2,6 +2,7 @@
 
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import { UseMovieTrailer } from "@/hooks/movies"
+import { useRouter } from "next/navigation"
 
 export default function Movie_carousel_card({ movie }) {
   const image = movie.backdrop_path
@@ -11,7 +12,7 @@ export default function Movie_carousel_card({ movie }) {
   const { data: trailer, refetch } = UseMovieTrailer(movie.id, {
     enabled: false,
   })
-
+  const router = useRouter()
   const showTrailer = async (title) => {
     try {
       const trailerData = trailer || (await refetch()).data
@@ -83,7 +84,7 @@ export default function Movie_carousel_card({ movie }) {
           </button>
 
           <button
-            onClick={() => window.open(`/movie/${movie.id}`)}
+            onClick={() => router.push(`/movie/info/${movie.id}`)}
             className="flex items-center justify-center gap-2 
             bg-gray-200 px-4 py-2 sm:px-5 sm:py-2.5 
             rounded-lg font-semibold hover:bg-gray-300 

@@ -70,7 +70,7 @@ export default function Moviecard({ movie, genres }) {
 
         <CardFooter className="bg-transparent p-0 grid grid-cols-2 gap-2">
           <Button className="bg-white/0 my-2 border border-white text-white hover:bg-white hover:text-black"
-            onClick={() => router.push(`/movie/${movie.id}`)}
+            onClick={() => router.push(`/movie/info/${movie.id}`)}
           >
             View Details
           </Button>
